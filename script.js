@@ -64,7 +64,8 @@ const Board = (function(){
             queue.push(startingCoord);
             if(queue.length === 0 || flag) return previousCoordArr;
             visitedCoordArr.push(startingCoord);
-            let linkedList = new LinkedList(startingCoord);
+            // let linkedList = new LinkedList(startingCoord);
+            let tempArr = [];
 
             console.log('startingCoord:');
             console.log(startingCoord);
@@ -91,15 +92,32 @@ const Board = (function(){
                         });
 
                         // adds unvisited node to queue
-                        if(!marker) {
-                            if(!flag) queue.push([this.xx, this.yy]);
-                            // linkedList.push([this.xx, this.yy]);
+                        if(!marker && !flag) {
+                            tempArr.push([this.xx, this.yy]);
+                            queue.push([this.xx, this.yy]);
                         };
                     };
                 };
             });
 
-            previousCoordArr.push(linkedList);
+            let tempGoal = `${goalCoords[0]}${goalCoords[1]}`;
+            for(let i = 0; i < tempArr.length; i++) {
+                let tempArrCord = `${tempArr[i][0]}${tempArr[i][1]}`;
+                let tempCoord1 = 0;
+                // let tempCoord2 = `${tempArr[i + 1][0]}${tempArr[i + 1][1]}`;
+                
+                // console.log(`${coord1FirstDigit}${coord1SecondDigit}`);
+                tempCoord1 -= tempGoal;
+                tempCoord2 -= tempGoal;
+                // if(tempCoord2 > tempCoord1) 
+            }
+            tempArr.forEach(coord => {
+                let tempCoord1 = [goalCoords[0] - coord[0], goalCoords[1] - coord[1]];
+                
+            })
+            // queue.push([this.xx, this.yy]);
+            // console.log(linkedList);
+            previousCoordArr.push(queue[0]);
             queue = queue.slice(1);
             return this.parser(queue[0], goalCoords);
             // prev.push(this.parser(queue[0], goalCoords));
@@ -136,6 +154,19 @@ const Board = (function(){
 
 // Board.knightMoves([0, 0], [3, 3]);
 // Board.knightMoves([0, 0], [1, 2]);
-Board.knightMoves([3, 3], [0, 0]);
+// Board.knightMoves([3, 3], [0, 0]);
 // Board.knightMoves([0, 0], [7, 7]);
 // Board.knightMoves([3, 3], [4, 3]);
+
+
+const arr = [1, 2, 5, 4, 7, 3, 8, 6];
+let num1 = arr[0];
+
+for(let i = 0; i < arr.length; i++) {
+
+    if(arr[i] > num1) {
+        num1 = arr[i];
+    };
+};
+
+console.log(`num1: ${num1}`);
